@@ -1,5 +1,9 @@
 import readline from "readline";
 
+const RANDOM_NUMBER_RANGE = 50
+const ANSWER_LIMIT = 6
+const ARR_LAST_IDX = -1
+
 function readLineAsync(query) {
     // 내부 로직 구현
      // readline 인터페이스 생성
@@ -33,29 +37,29 @@ async function reset(callback) {
 async function play() {
 	let answer = []
   console.log("컴퓨터가 1~50 사이의 숫자를 선택했습니다. 숫자를 맞춰보세요.");
-  const correctAnswer = Math.ceil(Math.random() * 50)
+  const correctAnswer = Math.ceil(Math.random() *  RANDOM_NUMBER_RANGE)
   
-  while ( answer.length < 6){
+  while ( answer.length < ANSWER_LIMIT){
     const inputValue = await readLineAsync("숫자 입력: ");
-    answer.push(inputValue)
+    answer.push(Number(inputValue))
 
-    if (inputValue > 50) {
+    if (inputValue >  RANDOM_NUMBER_RANGE) {
       console.log("숫자는 1 ~ 50 까지만 입력해주세요.")
       answer.pop()
     }
-    if(answer[answer.length-1] < correctAnswer && inputValue <= 50)
+    if(answer.at(ARR_LAST_IDX) < correctAnswer && inputValue <= RANDOM_NUMBER_RANGE)
     {
       console.log("업")
-      console.log("이전 추축:", ...answer)
+      console.log("이전 추측:", ...answer)
       console.log("")
     }
-    if(answer[answer.length-1]  > correctAnswer && inputValue <= 50)
+    if(answer.at(ARR_LAST_IDX)  > correctAnswer && inputValue <= RANDOM_NUMBER_RANGE)
     {
       console.log("다운")
-      console.log("이전 추축:", ...answer)
+      console.log("이전 추측:", ...answer)
       console.log("")
     }
-    if(answer[answer.length-1] == correctAnswer && inputValue <= 50 )
+    if(answer.at(ARR_LAST_IDX) === correctAnswer && inputValue <= RANDOM_NUMBER_RANGE)
     {
       console.log("정답!")
       console.log(`축하합니다! ${answer.length}번 만에 맞추셨습니다.`)
@@ -64,7 +68,7 @@ async function play() {
     }
   }
 
-  if(answer.length > 5 ){
+  if(answer.length === ANSWER_LIMIT ){
     console.log(`5회 초과! 숫자를 맞추지 못했습니다! (정답: ${correctAnswer})`)
     console.log("")
     return await reset(play)
