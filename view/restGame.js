@@ -1,7 +1,14 @@
-async function restGame(answers, count) {
-  if (answer.at(ARR_LAST_IDX) !== correctAnswer && answer.length === ANSWER_LIMIT ){
-    console.log(`${count}회 초과! 숫자를 맞추지 못했습니다! (정답: ${correctAnswer})`)
-    console.log("")
-    return await reset(play)
+import readLineAsync from "./readLineAsync.js";
+
+async function restGame(callback) {
+  const resetGame = await readLineAsync("게임을 다시 시작하시겠습니까? (yes/no): ");
+  if(resetGame !== "yes" && resetGame !== "no") {
+    console.log("yes 또는 no만 입력해주세요.")
+    return await restGame()
+  }
+  if(resetGame == "yes") {
+    return callback()
   }
 }
+
+export default restGame
