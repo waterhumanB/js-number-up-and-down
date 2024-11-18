@@ -43,5 +43,4 @@ async function startGame() {
   return {min, max, playCount}
 }
 
-// export default startGame
-startGame()
+export default startGame

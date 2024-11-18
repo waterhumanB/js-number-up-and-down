@@ -18,3 +18,17 @@ export function validateCount(input) {
 
   return null
 }
+
+export function validateInput(input,randomNum,answer) {
+  if (
+    input > 0 && 
+    input <= randomNum && 
+    !answer.includes(Number(input)) && 
+    input !== "" && 
+    input !== null && 
+    input !== undefined
+  ) {
+    return Number(input)
+  }
+  return null
+}
