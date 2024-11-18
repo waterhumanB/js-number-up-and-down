@@ -19,10 +19,10 @@ export function validateCount(input) {
   return null
 }
 
-export function validateInput(input,randomNum,answer) {
+export function validateInput(input,randomNum,answer, max) {
   if (
-    input > 0 && 
-    input <= randomNum && 
+    input > 0 &&
+    input <= max &&
     !answer.includes(Number(input)) && 
     input !== "" && 
     input !== null && 
