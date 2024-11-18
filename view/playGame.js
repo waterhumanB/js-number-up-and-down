@@ -54,7 +54,7 @@ async function playGame(min,max,count) {
     }
   }
   
-  return {answer,count, randomValue}
+  return
 }
 
 export default playGame
