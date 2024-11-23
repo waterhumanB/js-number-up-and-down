@@ -13,20 +13,3 @@ export async function getPlayCount() {
 
   return countValue 
 }
-
-
-// async function startGame() {
-//   const minMaxValue = await getMinMaxInput()
-
-//   const {min, max} = validateMinMax(minMaxValue)
-
-//   const countValue = await getPlayCount()
-
-//   const playCount = validateCount(countValue)
-
-//   return {min, max, playCount}
-// }
-
-// // export default startGame
-
-// startGame()

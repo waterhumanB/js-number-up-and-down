@@ -8,7 +8,7 @@ export function evaluateGuessMSG(value,answer) {
     return console.log("다운");
   }
   if (value === "CORRECT") {
-    console.log(`정답! \n 축하합니다! ${answer.length}번 만에 맞추셨습니다. `);
+    console.log(`정답! \n축하합니다! ${answer.length}번 만에 맞추셨습니다. `);
     return  true
   }
 }
@@ -28,35 +28,3 @@ export async function playGameInput() {
 
   return inputValue
 }
-
-// async function playGame(min,max,count) {
-//   const randomValue = getRandomValue(min,max)
-// 	let answer = []
-//   let result
-  
-//   evaluateGuessMSG(min,max)
-
-//   while ( answer.length <= count){
-//     const inputValue = await playGameInput();  
-//     result = validateInput(inputValue,answer,max)
-
-//     if(result === null){
-//       console.log("잘못된 입력입니다! 게임 설정에 맞게 입력해주세요.")
-//       answer.pop()
-//     }
-//     if(result !== null) {
-//       answer.push(result)
-//     }
-//     if(evaluateGuess(answer,randomValue ,inputValue,max)) {
-//       break
-//     }
-//     if(endGame(answer,count,randomValue)) {
-//       break
-//     }
-//   }
-  
-//   return
-// }
-
-// export default playGame
-
