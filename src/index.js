@@ -7,8 +7,8 @@ import restGame from "../view/restGame.js"
 
 async function startGame() {
   let minMaxInput
-  let countInput
   let minMaxValue
+  let countInput
   let countValue
 
   while(!minMaxValue) {
@@ -23,10 +23,11 @@ async function startGame() {
     errorMSG(countValue)
   }
 
-  const {min, max} = validateMinMax(minMaxInput)
-  const playCount = validateCount(countValue)  
-
-  return {min, max, playCount}
+  return {
+    min: minMaxValue.min,
+    max: minMaxValue.max, 
+    playCount: countValue
+  }
 }
 
 async function playGame(min,max,count) {

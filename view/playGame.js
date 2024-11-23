@@ -2,14 +2,16 @@ import readLineAsync from "./readLineAsync.js";
 
 export function evaluateGuessMSG(value,answer) {
   if (value === "UP") {
-    return console.log("업");
+    console.log("업");
+    console.log("이전 추측:", ...answer);
   }
   if (value === "DOWN") {
-    return console.log("다운");
+    console.log("다운");
+    console.log("이전 추측:", ...answer);
   }
   if (value === "CORRECT") {
     console.log(`정답! \n축하합니다! ${answer.length}번 만에 맞추셨습니다. `);
-    return  true
+    return true
   }
 }
 
