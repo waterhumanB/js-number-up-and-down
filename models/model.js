@@ -1,7 +1,4 @@
 export class GameModel {
-
-  static LAST_IDX = 1
-
   constructor(min,max,maxAttempts) {
     this.min = min
     this.max = max
@@ -15,7 +12,7 @@ export class GameModel {
     return Math.floor(Math.random() * (Math.floor(this.max) - Math.ceil(this.min) + 1)) + this.min; 
   }
 
-  validateMinMax(input) {
+  static validateMinMax(input) {
     const parts = input.split(",")
   
     if (parts.length === 2 && parts.every((part) => part !== "" && Number(part)) && Number(parts[0]) < Number(parts[1])) {
@@ -28,10 +25,10 @@ export class GameModel {
     return null
   }
 
-  validateAttempt () {
-    if ( this.maxAttempts !== "" && Number(this.maxAttempts) > 0 && !isNaN(this.maxAttempts) ){
+  static validateAttempt (input) {
+    if (input !== "" && Number(input) > 0 && !isNaN(input) ){
 
-    return Number(this.maxAttempts)
+    return Number(input)
     }
   
     return null
@@ -49,13 +46,12 @@ export class GameModel {
     return Number(input);
 }
 
-  evaluateGuess(input) {
-    const lastGuess = this.attempts.at(GameModel.LAST_IDX);
-  
+  makeGuess(input) {
+    const lastGuess = this.attempts.at(-1);
+    if (this.maxAttempts < this.attempts.length) return "EXCEEDED"
     if (lastGuess < this.answer && input <= this.max) return "UP"
     if (lastGuess > this.answer && input <= this.max) return "DOWN"
     if (lastGuess === this.answer && input <= this.max) return "CORRECT"
-    if (this.maxAttempts < this.attempts.length) return "EXCEEDED"
   }
 }
 
