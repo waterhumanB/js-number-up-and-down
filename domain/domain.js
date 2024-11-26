@@ -19,17 +19,17 @@ export function validateMinMax(input) {
     }
   
     return null
-  }
+}
   
-  export function validateCount(input) {
+export function validateCount(input) {
     if ( input !== "" && Number(input) > 0 && !isNaN(input) ){
       return Number(input)
     }
   
     return null
-  }
+}
   
-  export function validateInput(input,answer, max) {
+export function validateInput(input,answer, max) {
     if (
       input > 0 &&
       input <= max &&
@@ -41,5 +41,5 @@ export function validateMinMax(input) {
       return Number(input)
     }
     return null
-  }
+}
   
