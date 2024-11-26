@@ -13,8 +13,7 @@ function readLineAsync(query) {
       resolve(input);
       rl.close();
     });
-  })}
-
-
+  })
+}
 
   export default readLineAsync

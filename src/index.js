@@ -69,38 +69,3 @@ async function play() {
 
 play();
 
-class GameController {
-  constructor(view) {
-    this.view = view;
-    this.game = null;
-  }
-
-  async start() {
-    const config = await this.view.getGameConfig();
-    if (!config) return;
-
-    this.game = new Game(config.min, config.max, config.maxAttempts);
-    this.view.displayGameStart(this.game.min, this.game.max);
-    
-    await this.playGame();
-  }
-
-  async playGame() {
-    while (this.game.status === 'PLAYING') {
-      const guess = await this.view.getGuess();
-      const result = this.game.makeGuess(guess);
-      
-      if (!result) {
-        this.view.displayError('Invalid input');
-        continue;
-      }
-
-      this.view.displayResult(result);
-    }
-
-    const playAgain = await this.view.askPlayAgain();
-    if (playAgain) {
-      await this.start();
-    }
-  }
-}

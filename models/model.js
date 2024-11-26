@@ -55,6 +55,7 @@ export class GameModel {
     if (lastGuess < this.answer && input <= this.max) return "UP"
     if (lastGuess > this.answer && input <= this.max) return "DOWN"
     if (lastGuess === this.answer && input <= this.max) return "CORRECT"
+    if (this.maxAttempts < this.attempts.length) return "EXCEEDED"
   }
 }
 
