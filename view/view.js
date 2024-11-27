@@ -64,11 +64,13 @@ export class GameView {
 
   async askPlayAgain() {
     const resetGame = await this.readLineAsync("게임을 다시 시작하시겠습니까? (yes/no): ");
-    if(resetGame !== "yes" && resetGame !== "no") {
+
+    if (resetGame !== "yes" && resetGame !== "no") {
       console.log("yes 또는 no만 입력해주세요.")
       return await this.askPlayAgain()
     }
-    if(resetGame == "yes") {
+
+    if (resetGame == "yes") {
       return resetGame
     }
   }

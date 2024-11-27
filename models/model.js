@@ -1,4 +1,5 @@
-const ERROR = "error"
+import { ERROR } from "../constants/constants.js"
+
 export class GameModel {
   constructor(min,max,maxAttempts) {
     this.min = min
@@ -14,7 +15,7 @@ export class GameModel {
   }
 
   static validateMinMax(input) {
-    const parts = input.split(",");
+    const parts = input?.split(",");
 
       if (parts.length !== 2) return ERROR;
 
@@ -52,7 +53,7 @@ export class GameModel {
   makeGuess(input) {
     const lastGuess = this.attempts.at(-1);
     
-    if (this.maxAttempts < this.attempts.length) return "EXCEEDED"
+    if (this.maxAttempts <= this.attempts.length) return "EXCEEDED"
 
     if (lastGuess < this.answer && input <= this.max) return "UP"
 
