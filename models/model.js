@@ -14,6 +14,7 @@ export class GameModel {
     return Math.floor(Math.random() * (Math.floor(this.max) - Math.ceil(this.min) + 1)) + this.min; 
   }
 
+  // min, max 따로 받기
   static validateMinMax(input) {
     const parts = input?.split(",");
 
@@ -53,13 +54,13 @@ export class GameModel {
   makeGuess(input) {
     const lastGuess = this.attempts.at(-1);
     
+    if (lastGuess === this.answer && input <= this.max) return "CORRECT"
+
     if (this.maxAttempts <= this.attempts.length) return "EXCEEDED"
 
     if (lastGuess < this.answer && input <= this.max) return "UP"
 
     if (lastGuess > this.answer && input <= this.max) return "DOWN"
-
-    if (lastGuess === this.answer && input <= this.max) return "CORRECT"
   }
 }
 

@@ -19,15 +19,20 @@
       <h3>
         진행 가능 횟수
       </h3>
-      <input>
+      <input id="attempt">
     </article>
-
     <button id="start">시작 하기</button>
-  
-    <article>
-      
+    <article id="playGame">
+      <div>
+        <label for="guess">숫자 입력</label>
+        <input name="guess" id="guess">
+        <button id="play">확인</button>
+      </div>
+      <h3>진행화면</h3>
+      <div id="display"/>
     </article>
+    <button id="move">메인 화면으로 이동</button>
   </main>
-  <script type="module" src="./view/view.js"></script>
+  <script type="module" src="./src/controller.js"></script>
 </body>
 </html>

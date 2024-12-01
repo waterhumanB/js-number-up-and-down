@@ -8,68 +8,72 @@ class GameController {
     this.game = null;
   }
 
-  async start() {
+  async addStartEvent() {
     let minMaxValue
     let maxAttemptsValue
 
-    while (minMaxValue === ERROR || !minMaxValue) {
-      const inputMinMax = await this.view.getGameConfigMinMax();
+    this.view.clickButton("start", () => {
+      const inputMin = this.view.getInputValue("min")
+      const inputMax = this.view.getInputValue("max")
+      const inputMinMax = inputMin + "," + inputMax
       minMaxValue = GameModel.validateMinMax(inputMinMax)
-      console.log("minMAx",minMaxValue)
+  
+      const inputMaxAttempts = this.view.getInputValue("attempt")
+      maxAttemptsValue = GameModel.validateAttempt(inputMaxAttempts)
 
       if (minMaxValue === ERROR) {
         this.view.displayError("잘못된 입력입니다. 최소값과 최대값을 올바르게 입력하세요.")
-        continue
+        this.view.clearInput("min")
+        this.view.clearInput("max")
+        return
       }
-    }
 
-    while (maxAttemptsValue === ERROR || !maxAttemptsValue) {
-      const inputMaxAttempts = await this.view.getGameConfigMaxAttempts()
-      maxAttemptsValue = GameModel.validateAttempt(inputMaxAttempts)
-  
       if (maxAttemptsValue === ERROR) {
         this.view.displayError("잘못된 입력입니다. 시도할 횟수를 올바르게 입력하세요.")
-        continue
+        this.view.clearInput("attempt")
+        return
       }
-    }
 
-    this.game = new GameModel(minMaxValue.min, minMaxValue.max, maxAttemptsValue);
-    this.view.displayGameStart(this.game.min, this.game.max);
-    
-    await this.playGame();
+      this.game = new GameModel(minMaxValue.min, minMaxValue.max, maxAttemptsValue);
+      this.view.createElement("display","displayMsg",`[게임시작] ${minMaxValue.min}~${minMaxValue.max} 사이의 숫자를 선택했습니다. 숫자를 맞춰보세요!`)
+      
+      return this.addPlayEvent()
+    })
   }
 
-  async playGame() {
-    while (this.game.status === 'PLAYING') {
-      const guess = await this.view.getGuess();      
-      const result = this.game.validateInput(guess)
-      
-      if (result === ERROR) {
-        this.view.displayError("잘못된 입력입니다! 게임 설정에 맞게 입력해주세요.");
-        continue;
-      }
+  addPlayEvent() {
+      this.view.clickButton("play",() => {
+        const guess = this.view.getInputValue("guess");      
+        const result = this.game.validateInput(guess)
+        
+        if (result === ERROR) {
+          return this.view.displayError("잘못된 입력입니다! 게임 설정에 맞게 입력해주세요.");
+        }
+  
+        this.game.attempts.push(guess)
+        const displayResult = this.game.makeGuess(result)
+        const displayMsg = this.view.displayResult(displayResult, this.game.attempts, this.game.answer)
+        this.view.createElement("display","displayMsg",displayMsg)
 
-      this.game.attempts.push(guess)
-      const displayResult = this.game.makeGuess(result)
-      this.view.displayResult(displayResult, this.game.attempts, this.game.answer)
-      
-      if (displayResult === "CORRECT") {
-        this.game.status = "WON"
-      }
+        if (displayResult === "CORRECT") {
+          this.game.status = "WON"
+        }
+  
+        if (displayResult === "EXCEEDED") {
+          this.game.status = "LOST"
+        }
 
-      if (displayResult === "EXCEEDED") {
-        this.game.status = "LOST"
-      }
-    }
+        if (this.game.status !== "PLAYING") {
+          this.view.createElement("display","displayMsg","게임이 끝났습니다. 다시 시작하려면 메인 화면으로 돌아가주세요!")
+        }
+    })
+  }
+  addResetEvent() {
 
-    const playAgain = await this.view.askPlayAgain();
-    if (playAgain === "yes") {
-      await this.start();
-    }
   }
 }
 
-(async () => {
+( () => {
   const game = new GameController(new GameView())
-  await game.start()
+  game.addStartEvent()
 })();
