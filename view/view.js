@@ -12,8 +12,16 @@ export class GameView {
     return document.getElementById(inputId).value = ""
   }
 
-  displayMsg (elId, msg) {
-    return document.getElementById(elId).ELEMENT_NODE.innerText = msg
+  displayNone (elId, none) {
+    const element = document.getElementById(elId)
+
+    if (none === true) {
+      return element.style.display = "none"
+    }
+
+    if (none === false) {
+      return element.style.display = "flex"
+    }
   }
 
   createElement(containerId, tagName, textContent) {
@@ -41,11 +49,11 @@ export class GameView {
   displayResult(result, attempts, answer) {
     switch (result) {
       case 'UP':
-        return `업 이전 추측: ${attempts.join(', ')}`
+        return `업!! 이전 추측: ${attempts.join(', ')}`
       case 'DOWN':
-        return `다운 이전 추측: ${attempts.join(', ')}`
+        return `다운!! 이전 추측: ${attempts.join(', ')}`
       case 'CORRECT':
-        return `정답! 축하합니다! ${attempts.length}번 만에 맞추셨습니다.`
+        return `정답!!! 축하합니다!!!! ${attempts.length}번 만에 맞추셨습니다.`
       case 'EXCEEDED':
         return `${attempts.length}회 초과! 숫자를 맞추지 못했습니다! (정답: ${answer})`
     }

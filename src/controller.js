@@ -33,6 +33,8 @@ class GameController {
         return
       }
 
+      this.view.displayNone("gameConfig",true)
+      this.view.displayNone("playGame",false)
       this.game = new GameModel(minMaxValue.min, minMaxValue.max, maxAttemptsValue);
       this.view.createElement("display","div",`[게임시작] ${minMaxValue.min}~${minMaxValue.max} 사이의 숫자를 선택했습니다. 숫자를 맞춰보세요!`)
       
@@ -48,7 +50,8 @@ class GameController {
         if (result === ERROR) {
           return this.view.displayError("잘못된 입력입니다! 게임 설정에 맞게 입력해주세요.");
         }
-  
+        
+        this.view.clearInput("guess")
         this.game.attempts.push(Number(guess));
         const displayResult = this.game.makeGuess(result)
         const displayMsg = this.view.displayResult(displayResult, this.game.attempts, this.game.answer)
@@ -72,12 +75,14 @@ class GameController {
   addResetEvent() {
     this.view.clickButton("reset", () => {
       this.game = null
-      
+
       this.view.clearInput("min")
       this.view.clearInput("max")
       this.view.clearInput("attempt")
       this.view.clearInput("guess")
       this.view.clearDynamicElements("display")
+      this.view.displayNone("gameConfig",false)
+      this.view.displayNone("playGame",true)
 
       this.addStartEvent();
     })

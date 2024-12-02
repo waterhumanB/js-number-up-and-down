@@ -14,10 +14,9 @@ export class GameModel {
     return Math.floor(Math.random() * (Math.floor(this.max) - Math.ceil(this.min) + 1)) + this.min; 
   }
 
-  // min, max 따로 받기
-  static validateMinMax(min,max) {
-    const min = Number(min)
-    const max = Number(max)
+  static validateMinMax(inputMin,inputMax) {
+    const min = Number(inputMin)
+    const max = Number(inputMax)
 
     if (isNaN(min) || isNaN(max)) return ERROR
 

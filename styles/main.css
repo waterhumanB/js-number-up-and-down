@@ -1,0 +1,45 @@
+#title {
+  display: flex;
+  justify-content: center;
+}
+
+main {
+  width: 500px;
+  height: 100%;
+  margin: 100px auto auto auto;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#playGame {
+  display: none;
+}
+
+#min, #max {
+  width: 100px;
+  height: 25px;
+  margin: 20px;
+}
+
+#attempt {
+  width: 250px;
+  height: 25px;
+  margin-bottom: 30px;
+}
+
+#start, #reset {
+  width: 200px;
+  height: 30px;
+  margin: 30px auto auto auto;
+  display: block;
+}
+
+#display {
+  width: 100%;
+  min-height: 300px;
+}
