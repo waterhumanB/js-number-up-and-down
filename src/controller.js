@@ -24,13 +24,11 @@ class GameController {
         this.view.displayError("잘못된 입력입니다. 최소값과 최대값을 올바르게 입력하세요.")
         this.view.clearInput("min")
         this.view.clearInput("max")
-        return
       }
 
       if (maxAttemptsValue === ERROR) {
         this.view.displayError("잘못된 입력입니다. 시도할 횟수를 올바르게 입력하세요.")
         this.view.clearInput("attempt")
-        return
       }
 
       this.view.displayNone("gameConfig",true)
@@ -48,7 +46,7 @@ class GameController {
         const result = this.game.validateInput(guess)
         
         if (result === ERROR) {
-          return this.view.displayError("잘못된 입력입니다! 게임 설정에 맞게 입력해주세요.");
+          this.view.displayError("잘못된 입력입니다! 게임 설정에 맞게 입력해주세요.");
         }
         
         this.view.clearInput("guess")

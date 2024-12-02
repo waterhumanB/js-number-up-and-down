@@ -1,26 +1,26 @@
 export class GameView {
 
   displayError (message) {
-    return window.alert(message)
+    window.alert(message)
   }
 
   getInputValue (inputId) {
-    return document.getElementById(inputId).value
+    document.getElementById(inputId).value
   }
 
   clearInput(inputId) {
-    return document.getElementById(inputId).value = ""
+    document.getElementById(inputId).value = ""
   }
 
   displayNone (elId, none) {
     const element = document.getElementById(elId)
 
     if (none === true) {
-      return element.style.display = "none"
+      element.style.display = "none"
     }
 
     if (none === false) {
-      return element.style.display = "flex"
+      element.style.display = "flex"
     }
   }
 
