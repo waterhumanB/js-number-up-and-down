@@ -5,9 +5,9 @@ export class GameModel {
     this.min = min
     this.max = max
     this.maxAttempts = maxAttempts;
-    this.answer = this.generateRandomNumber();
-    this.attempts = [];
-    this.status = 'PLAYING'; // PLAYING, WON, LOST
+    this.answer = this.generateRandomNumber()
+    this.attempts = []
+    this.status = 'PLAYING' // PLAYING, WON, LOST
   }
 
   generateRandomNumber() {
@@ -15,19 +15,15 @@ export class GameModel {
   }
 
   // min, max 따로 받기
-  static validateMinMax(input) {
-    const parts = input?.split(",");
+  static validateMinMax(min,max) {
+    const min = Number(min)
+    const max = Number(max)
 
-      if (parts.length !== 2) return ERROR;
+    if (isNaN(min) || isNaN(max)) return ERROR
 
-      const min = Number(parts[0].trim());
-      const max = Number(parts[1].trim());
+    if (min >= max) return ERROR
 
-      if (isNaN(min) || isNaN(max)) return ERROR;
-
-      if (min >= max) return ERROR;
-
-    return { min, max };
+    return { min, max }
   }
 
   static validateAttempt (input) {
